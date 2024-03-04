@@ -80,38 +80,39 @@ function getDayName(date) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(date) {
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth();
-  const day = date.getUTCDay();
-  let diff = 0;
-  switch (day) {
-    case 0:
-      diff = 5;
-      break;
-    case 1:
-      diff = 4;
-      break;
-    case 2:
-      diff = 3;
-      break;
-    case 3:
-      diff = 2;
-      break;
-    case 4:
-      diff = 1;
-      break;
-    case 5:
-      diff = 7;
-      break;
-    case 6:
-      diff = 6;
-      break;
-    default:
-      return 'diff is undefined';
-  }
-  const newDate = new Date(year, month, day + diff);
-  return newDate;
+function getNextFriday(/* date */) {
+  throw new Error('Not implemented');
+  // const year = date.getUTCFullYear();
+  // const month = date.getUTCMonth();
+  // const day = date.getUTCDay();
+  // let diff = 0;
+  // switch (day) {
+  //   case 0:
+  //     diff = 5;
+  //     break;
+  //   case 1:
+  //     diff = 4;
+  //     break;
+  //   case 2:
+  //     diff = 3;
+  //     break;
+  //   case 3:
+  //     diff = 2;
+  //     break;
+  //   case 4:
+  //     diff = 1;
+  //     break;
+  //   case 5:
+  //     diff = 7;
+  //     break;
+  //   case 6:
+  //     diff = 6;
+  //     break;
+  //   default:
+  //     return 'diff is undefined';
+  // }
+  // const newDate = new Date(year, month, day + diff);
+  // return newDate;
 }
 
 /**
@@ -146,8 +147,12 @@ function getCountDaysInMonth(month, year) {
  * '2024-02-01T00:00:00.000Z', '2024-02-02T00:00:00.000Z'  => 2
  * '2024-02-01T00:00:00.000Z', '2024-02-12T00:00:00.000Z'  => 12
  */
-function getCountDaysOnPeriod(/* dateStart, dateEnd */) {
-  throw new Error('Not implemented');
+function getCountDaysOnPeriod(dateStart, dateEnd) {
+  const millisecondsPerDay = 1000 * 60 * 60 * 24;
+  const firstDate = new Date(dateStart);
+  const secondDate = new Date(dateEnd);
+  const days = Math.round((secondDate - firstDate) / millisecondsPerDay) + 1;
+  return days;
 }
 
 /**
