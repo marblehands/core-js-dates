@@ -189,6 +189,8 @@ function isDateInPeriod(/* date, period */) {
  */
 function formatDate(/* date */) {
   throw new Error('Not implemented');
+  // const newDate = new Date(date);
+  // return newDate.toLocaleString('en-US');
 }
 
 /**
@@ -287,8 +289,10 @@ function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
  * Date(2022, 2, 1) => false
  * Date(2020, 2, 1) => true
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const newDate = new Date(date);
+  const num = newDate.getFullYear();
+  return (num % 100 && !(num % 4)) || !(num % 400);
 }
 
 module.exports = {
