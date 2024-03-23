@@ -324,8 +324,45 @@ function getQuarter(date) {
  * { start: '01-01-2024', end: '15-01-2024' }, 1, 3 => ['01-01-2024', '05-01-2024', '09-01-2024', '13-01-2024']
  * { start: '01-01-2024', end: '10-01-2024' }, 1, 1 => ['01-01-2024', '03-01-2024', '05-01-2024', '07-01-2024', '09-01-2024']
  */
-function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
-  throw new Error('Not implemented');
+function getWorkSchedule(period, countWorkDays, countOffDays) {
+  const getDate = (str) => {
+    const arr = str.split('-').map((item) => Number(item));
+    const date = new Date(Date.UTC(arr[2], arr[1] - 1, arr[0]));
+    return date;
+  };
+
+  const formatCurDate = (date) => {
+    return `${date.getUTCDate().toString().padStart(2, '0')}-${(date.getUTCMonth() + 1).toString().padStart(2, '0')}-${date.getUTCFullYear()}`;
+  };
+
+  const getDays = (startDate, endDate) => {
+    const diff = endDate - startDate;
+    return Math.round(diff / (1000 * 60 * 60 * 24));
+  };
+
+  const startDate = getDate(period.start);
+  const endDate = getDate(period.end);
+
+  const days = getDays(startDate.getTime(), endDate.getTime());
+
+  const year = startDate.getUTCFullYear();
+  const month = startDate.getUTCMonth();
+  const dayStart = startDate.getUTCDate();
+
+  const dates = [];
+
+  for (let i = 0; i <= days; i += 1) {
+    dates.push(formatCurDate(new Date(Date.UTC(year, month, dayStart + i))));
+  }
+
+  const schedule = [];
+
+  while (dates.length) {
+    dates.splice(0, countWorkDays).forEach((date) => schedule.push(date));
+    dates.splice(0, countOffDays);
+  }
+
+  return schedule;
 }
 
 /**
