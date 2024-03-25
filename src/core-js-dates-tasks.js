@@ -287,9 +287,12 @@ function getNextFridayThe13th(date) {
   let month = date.getUTCMonth();
   let isFriday;
   let newDate;
-  while (isFriday !== 4) {
+  while (isFriday !== 5) {
+    newDate = new Date(Date.UTC(year, month, 13));
     month += 1;
-    newDate = new Date(year, month, 13);
+    if (month > 11) {
+      month = 0;
+    }
     isFriday = newDate.getUTCDay();
   }
   return newDate;
